@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Teddy Day! 🧸💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff69b4 50%, #ffc0cb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Emojis */
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 8s infinite ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3em;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            animation: titlePulse 2s infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 4px 4px 20px rgba(255, 105, 180, 0.8);
+            }
+        }
+
+        .teddy-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .teddy-container {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .teddy-container:hover {
+            transform: scale(1.05);
+        }
+
+        .teddy-container:active {
+            transform: scale(0.98);
+        }
+
+        /* Teddy Bear */
+        .teddy {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        /* Head */
+        .head {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Ears */
+        .ear {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+            border-radius: 50%;
+            top: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .ear.left {
+            left: -15px;
+        }
+
+        .ear.right {
+            right: -15px;
+        }
+
+        .ear-inner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #D2691E;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Snout */
+        .snout {
+            position: absolute;
+            width: 70px;
+            height: 55px;
+            background: #f4a460;
+            border-radius: 50%;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Nose */
+        .nose {
+            position: absolute;
+            width: 22px;
+            height: 18px;
+            background: #000;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Eyes */
+        .eyes {
+            position: absolute;
+            width: 100%;
+            top: 35px;
+        }
+
+        .eye {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #000;
+            border-radius: 50%;
+            box-shadow: inset -3px -3px 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .eye.left {
+            left: 22px;
+        }
+
+        .eye.right {
+            right: 22px;
+        }
+
+        .eye::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+        }
+
+        /* Smile - Initially Hidden */
+        .smile {
+            position: absolute;
+            width: 50px;
+            height: 25px;
+            border: 4px solid #000;
+            border-top: none;
+            border-radius: 0 0 50px 50px;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .teddy-container.smiling .smile {
+            opacity: 1;
+        }
+
+        /* Rosy Cheeks */
+        .cheek {
+            position: absolute;
+            width: 25px;
+            height: 20px;
+            background: rgba(255, 105, 180, 0.4);
+            border-radius: 50%;
+            top: 55px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cheek.left {
+            left: 8px;
+        }
+
+        .cheek.right {
+            right: 8px;
+        }
+
+        .teddy-container.smiling .cheek {
+            opacity: 1;
+        }
+
+        /* Body */
+        .body {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+            border-radius: 50%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .belly {
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            background: #f4a460;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heart on Belly */
+        .belly-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 35px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        /* Arms */
+        .arm {
+            position: absolute;
+            width: 45px;
+            height: 85px;
+            background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+            border-radius: 50%;
+            top: 125px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .arm.left {
+            left: 5px;
+            transform: rotate(-35deg);
+        }
+
+        .arm.right {
+            right: 5px;
+            transform: rotate(35deg);
+        }
+
+        /* Legs */
+        .leg {
+            position: absolute;
+            width: 55px;
+            height: 65px;
+            background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+            border-radius: 50%;
+            bottom: -25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .leg.left {
+            left: 25px;
+        }
+
+        .leg.right {
+            right: 25px;
+        }
+
+        .paw {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background: #f4a460;
+            border-radius: 50%;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Surprise Button */
+        .surprise-btn {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .surprise-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+        }
+
+        .surprise-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .surprise-btn::before {
+            content: '✨';
+            position: absolute;
+            font-size: 1.5em;
+            animation: sparkleMove 2s infinite;
+        }
+
+        @keyframes sparkleMove {
+            0% {
+                left: -20px;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Note Card */
+        .note-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #fff 0%, #ffe6f2 100%);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            max-width: 450px;
+            width: 90%;
+            z-index: 1000;
+            border: 5px solid #ff69b4;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .note-card.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .note-card h2 {
+            color: #ff1493;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .note-card p {
+            color: #ff1493;
+            font-size: 1.2em;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .note-card .highlight {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ff0066;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .close-btn {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .instruction {
+            color: white;
+            font-size: 1.3em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .teddy {
+                transform: scale(0.9);
+            }
+
+            .surprise-btn {
+                padding: 15px 40px;
+                font-size: 1.3em;
+            }
+
+            .note-card {
+                padding: 30px;
+            }
+
+            .note-card h2 {
+                font-size: 1.6em;
+            }
+
+            .note-card p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .teddy {
+                transform: scale(0.8);
+            }
+
+            .surprise-btn {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+
+            .instruction {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <h1>💕 Happy Teddy Day! 🧸</h1>
+        
+        <div class="teddy-wrapper">
+            <div class="teddy-container" id="teddyContainer">
+                <div class="teddy">
+                    <!-- Head -->
+                    <div class="head">
+                        <div class="ear left">
+                            <div class="ear-inner"></div>
+                        </div>
+                        <div class="ear right">
+                            <div class="ear-inner"></div>
+                        </div>
+                        <div class="eyes">
+                            <div class="eye left"></div>
+                            <div class="eye right"></div>
+                        </div>
+                        <div class="cheek left"></div>
+                        <div class="cheek right"></div>
+                        <div class="snout">
+                            <div class="nose"></div>
+                        </div>
+                        <div class="smile"></div>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="body">
+                        <div class="belly">
+                            <div class="belly-heart">💖</div>
+                        </div>
+                    </div>
+
+                    <!-- Arms -->
+                    <div class="arm left"></div>
+                    <div class="arm right"></div>
+
+                    <!-- Legs -->
+                    <div class="leg left">
+                        <div class="paw"></div>
+                    </div>
+                    <div class="leg right">
+                        <div class="paw"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="instruction">👆 Touch the teddy! 💕</p>
+
+        <button class="surprise-btn" id="surpriseBtn">
+            🎁 Click for Surprise! 🎁
+        </button>
+    </div>
+
+    <!-- Note Card -->
+    <div class="note-card" id="noteCard">
+        <h2>🧸 Happy Teddy Day! 💖</h2>
+        <p>
+            To the one who fills my days with warmth and joy! 🌟
+        </p>
+        <p>
+            Celebrating <strong>23 magical months</strong> of togetherness! 🎉
+        </p>
+        <p>
+            Every moment with you is like a cozy hug from my favorite teddy bear! 🧸💕
+        </p>
+        <p class="highlight">
+            Here's to forever and always! 💑✨
+        </p>
+        <center>
+            <button class="close-btn" id="closeBtn">Close 💖</button>
+        </center>
+    </div>
+
+    <script>
+        // Teddy smile interaction
+        const teddyContainer = document.getElementById('teddyContainer');
+        
+        teddyContainer.addEventListener('touchstart', showSmile);
+        teddyContainer.addEventListener('mousedown', showSmile);
+        teddyContainer.addEventListener('touchend', hideSmile);
+        teddyContainer.addEventListener('mouseup', hideSmile);
+        teddyContainer.addEventListener('mouseleave', hideSmile);
+
+        function showSmile(e) {
+            e.preventDefault();
+            teddyContainer.classList.add('smiling');
+        }
+
+        function hideSmile() {
+            setTimeout(() => {
+                teddyContainer.classList.remove('smiling');
+            }, 200);
+        }
+
+        // Surprise button
+        const surpriseBtn = document.getElementById('surpriseBtn');
+        const noteCard = document.getElementById('noteCard');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        surpriseBtn.addEventListener('click', function() {
+            noteCard.classList.add('show');
+            overlay.classList.add('show');
+            createConfetti();
+        });
+
+        closeBtn.addEventListener('click', function() {
+            noteCard.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
+        overlay.addEventListener('click', function() {
+            noteCard.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
+        // Create floating emojis
+        function createFloatingEmoji() {
+            const emojis = ['❤️', '💕', '💖', '💗', '💝', '🎀', '🌹', '💐'];
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            emoji.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 10000);
+        }
+
+        // Confetti effect when surprise is revealed
+        function createConfetti() {
+            const confettiEmojis = ['💕', '💖', '🎀', '✨', '⭐', '💝'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'emoji';
+                    confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '50%';
+                    confetti.style.animationDuration = '3s';
+                    confetti.style.fontSize = Math.random() * 20 + 20 + 'px';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 50);
+            }
+        }
+
+        // Generate floating emojis continuously
+        setInterval(createFloatingEmoji, 800);
+
+        // Initial emojis
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createFloatingEmoji, i * 200);
+        }
+    </script>
+</body>
+</html>
